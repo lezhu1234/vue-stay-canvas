@@ -1,0 +1,35 @@
+{
+  "name": "vue-stay-canvas",
+  "version": "1.0.0",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/vue-stay-canvas.umd.cjs",
+  "module": "./dist/vue-stay-canvas.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vue-stay-canvas.js",
+      "require": "./dist/vue-stay-canvas.umd.cjs"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "types": "vue-tsc ",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vite-plugin-dts": "^3.9.1",
+    "vue": "^3.4.21"
+  },
+  "devDependencies": {
+    "@types/node": "^20.13.0",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0",
+    "vue-tsc": "^2.0.6"
+  }
+}
