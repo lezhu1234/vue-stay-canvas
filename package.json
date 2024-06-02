@@ -12,7 +12,7 @@
       "import": "./dist/vue-stay-canvas.js",
       "require": "./dist/vue-stay-canvas.umd.cjs"
     },
-    "./style.css": "./dist/style.css"
+    "./types": "./dist/index.d.ts"
   },
   "types": "./dist/index.d.ts",
   "scripts": {
