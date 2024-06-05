@@ -5,8 +5,8 @@
   "files": [
     "dist"
   ],
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "main": "dist/vue-stay-canvas.js",
+  "module": "dist/vue-stay-canvas.js",
   "exports": {
     ".": {
       "import": "./dist/vue-stay-canvas.js",
