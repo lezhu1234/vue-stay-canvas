@@ -14,10 +14,24 @@
     },
     "./types": "./dist/index.d.ts"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lezhu1234/vue-stay-canvas.git"
+  },
+  "keywords": [
+    "react",
+    "canvas"
+  ],
+  "author": "lezhu <lezhu1234@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lezhu1234/vue-stay-canvas/issues"
+  },
+  "homepage": "https://github.com/lezhu1234/vue-stay-canvas#readme",
   "types": "./dist/index.d.ts",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && npm version patch && npm publish",
     "types": "vue-tsc",
     "preview": "vite preview"
   },
