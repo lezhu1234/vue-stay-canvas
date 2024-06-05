@@ -9,6 +9,7 @@ export default defineConfig({
     vue(),
     dts({
       insertTypesEntry: true,
+      rollupTypes: true,
     }),
   ],
   build: {
