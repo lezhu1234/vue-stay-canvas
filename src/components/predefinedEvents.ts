@@ -108,7 +108,7 @@ const MoveEndEvent: EventProps = {
 const MoveEvent: EventProps = {
   name: "move",
   trigger: MOUSE_EVENTS.MOUSE_MOVE,
-  conditionCallback: ({ e, store }) => {
+  conditionCallback: ({ e }) => {
     return e.pressedKeys.has("Control") && e.pressedKeys.has("mouse0")
   },
   successCallback: () => {

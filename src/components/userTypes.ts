@@ -5,7 +5,6 @@ import { StepProps, valueof } from "./stay/types"
 import { UserCallback } from "./types"
 import { DRAW_ACTIONS, SORT_CHILDREN_METHODS } from "./userConstants"
 
-type SortChildrenMethodsKeys = keyof typeof SORT_CHILDREN_METHODS
 export type StayChildren = Record<string, StayChild>
 export type DrawActionsValuesType = valueof<typeof DRAW_ACTIONS>
 

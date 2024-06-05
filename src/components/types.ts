@@ -16,12 +16,7 @@ export interface composeProps {
   area?: Rectangle[] | Rectangle
   event?: string
 }
-interface AreaProps {
-  x: number
-  y: number
-  width: number
-  height: number
-}
+
 export interface FireEvent {
   (e: KeyboardEvent | MouseEvent | WheelEvent, trigger: string): void
 }
