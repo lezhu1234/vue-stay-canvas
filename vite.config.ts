@@ -18,6 +18,7 @@ export default defineConfig({
       name: "VueStayCanvas",
       // the name of the output files when the build is run
       fileName: "vue-stay-canvas",
+      formats: ["es"],
     },
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled

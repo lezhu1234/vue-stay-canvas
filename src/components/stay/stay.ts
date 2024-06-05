@@ -37,6 +37,7 @@ import {
 } from "../userTypes"
 import { assert, infixExpressionParser, parseLayer, uuid4 } from "../utils"
 import { StayChild } from "./stayChild"
+
 import { StackItem, StepProps } from "./types"
 
 interface drawLayer {
@@ -44,7 +45,7 @@ interface drawLayer {
 }
 
 class Stay {
-  #children: Map<string, StayChild>
+  children: Map<string, StayChild>
   composeStore: Record<string, any>
   currentPressedKeys: {
     [key: string]: boolean
@@ -74,7 +75,7 @@ class Stay {
     this.y = 0
     this.width = this.root.width
     this.height = this.root.height
-    this.#children = new Map<string, StayChild>()
+    this.children = new Map<string, StayChild>()
     const rootChild = new StayChild({
       id: `${ROOTNAME}-${uuid4()}`,
       zIndex: -1,
@@ -88,7 +89,7 @@ class Stay {
       className: ROOTNAME,
       layer: 0,
     })
-    this.#children.set(rootChild.id, rootChild)
+    this.children.set(rootChild.id, rootChild)
     this.events = {}
     this.store = new Map<string, any>()
     this.stateStore = new Map<string, any>()
@@ -220,7 +221,7 @@ class Stay {
   }
 
   filterChildren(filterCallback: (...args: any) => boolean) {
-    return [...this.#children.values()].filter(filterCallback)
+    return [...this.children.values()].filter(filterCallback)
   }
 
   findByClassName(className: string): StayChild[] {
@@ -302,11 +303,11 @@ class Stay {
     this.drawLayers[layerIndex].forceUpdate = true
   }
   getChildById(id: string) {
-    return this.#children.get(id)
+    return this.children.get(id)
   }
 
   getChildren() {
-    return this.#children
+    return this.children
   }
   getTools(): StayTools {
     return {
@@ -328,7 +329,7 @@ class Stay {
         // }
         layer = parseLayer(this.root.layers, layer)
         this.checkName(className, [ROOTNAME])
-        const child = new StayChild({
+        const child = new StayChild<typeof shape>({
           id,
           zIndex: zIndex === undefined ? 1 : zIndex,
           className,
@@ -370,7 +371,7 @@ class Stay {
           this.zIndexUpdated = true
         }
         layer = parseLayer(this.root.layers, layer)
-        child.update({
+        child._update({
           shape,
           zIndex: zIndex,
           layer,
@@ -521,8 +522,7 @@ class Stay {
           this.forceUpdateLayer(i)
         })
       },
-      forward: () => {
-        console.log("forward")
+      redo: () => {
         if (this.stackIndex >= this.stack.length) {
           console.log("no more operations")
           return
@@ -557,8 +557,7 @@ class Stay {
         this.stackIndex++
       },
 
-      backward: () => {
-        console.log("backward")
+      undo: () => {
         if (this.stackIndex <= 0) {
           console.log("no more operations")
           return
@@ -604,6 +603,7 @@ class Stay {
           e: ActionEvent
           name: string
         }
+
         let needUpdate = false
         const callbackList: CallBackType[] = []
         this.listeners.forEach(({ name, event, state, selector, sortBy, callback }) => {
@@ -636,7 +636,7 @@ class Stay {
               name,
             })
             if (callback) {
-              const linkArgs = callback({
+              const eventFuncMap = callback({
                 originEvent,
                 e: actionEvent,
                 store: this.store,
@@ -646,9 +646,12 @@ class Stay {
                 canvas: this.root,
                 payload,
               })
-              this.composeStore[name] = {
-                ...this.composeStore[name],
-                ...(linkArgs || {}),
+              if (eventFuncMap !== undefined && actionEvent.name in eventFuncMap) {
+                const particalComposeStore = eventFuncMap[actionEvent.name]()
+                this.composeStore[name] = {
+                  ...this.composeStore[name],
+                  ...particalComposeStore,
+                }
               }
             }
           })
@@ -677,10 +680,12 @@ class Stay {
     topLayer.onmousedown = (e: MouseEvent) =>
       mousedown(this.fireEvent.bind(this), this.pressKey.bind(this), e)
     topLayer.onmousemove = (e: MouseEvent) => mousemove(this.fireEvent.bind(this), e)
-    topLayer.onwheel = (e: WheelEvent) => wheel(this.fireEvent.bind(this), e)
     topLayer.onclick = (e: MouseEvent) => click(this.fireEvent.bind(this), e)
     topLayer.ondblclick = (e: MouseEvent) => dblclick(this.fireEvent.bind(this), e)
     topLayer.oncontextmenu = (e: MouseEvent) => contextmenu(this.fireEvent.bind(this), e)
+    topLayer.addEventListener("wheel", (e: WheelEvent) => wheel(this.fireEvent.bind(this), e), {
+      passive: true,
+    })
   }
 
   pressKey(key: string) {
@@ -689,7 +694,7 @@ class Stay {
 
   pushToChildren(child: StayChild) {
     child.shape.startTime = Date.now()
-    this.#children.set(child.id, child)
+    this.children.set(child.id, child)
   }
 
   pushToStack(steps: StackItem) {
@@ -714,7 +719,7 @@ class Stay {
   }
 
   removeChildById(id: string) {
-    this.#children.delete(id)
+    this.children.delete(id)
   }
 
   snapshotChildren() {

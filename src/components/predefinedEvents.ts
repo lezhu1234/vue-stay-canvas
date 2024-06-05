@@ -12,8 +12,8 @@ export const mouseDownEvent: EventProps = {
   },
 }
 
-export const BackwardEvent: EventProps = {
-  name: "backward",
+export const UndoEvent: EventProps = {
+  name: "undo",
   trigger: KEYBOARRD_EVENTS.KEY_UP,
   conditionCallback: ({ e }) => {
     return (
@@ -22,8 +22,8 @@ export const BackwardEvent: EventProps = {
   },
 }
 
-export const ForwardEvent: EventProps = {
-  name: "forward",
+export const RedoEvent: EventProps = {
+  name: "redo",
   trigger: KEYBOARRD_EVENTS.KEY_UP,
   conditionCallback: ({ e }) => {
     return (
@@ -36,6 +36,10 @@ export const ClickEvent: EventProps = {
   name: "click",
   trigger: MOUSE_EVENTS.MOUSE_UP,
   conditionCallback: ({ e, store }) => {
+    if (!store.get("lastMouseDownPosition")) {
+      return false
+    }
+
     const { x, y } = store.get("lastMouseDownPosition")
     const now = Date.now()
     const timeDiff = now - store.get("laseMouseDownTime")

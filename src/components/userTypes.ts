@@ -2,6 +2,7 @@ import Canvas from "./canvas"
 import { Point } from "./shapes/point"
 import { Shape } from "./shapes/shape"
 import { StepProps, valueof } from "./stay/types"
+import { UserCallback } from "./types"
 import { DRAW_ACTIONS, SORT_CHILDREN_METHODS } from "./userConstants"
 
 type SortChildrenMethodsKeys = keyof typeof SORT_CHILDREN_METHODS
@@ -14,6 +15,10 @@ export type Dict<T = any> = Record<string, T>
 export interface SimplePoint {
   x: number
   y: number
+}
+
+export type StayCanvasTriggerType = {
+  trigger: (name: string, payload?: Dict) => void
 }
 
 export interface ActionEvent {
@@ -71,7 +76,7 @@ export interface ActionCallbackProps {
   payload: Dict
 }
 
-type ListenerCallback = (p: ActionCallbackProps) => Record<string, any> | void
+// type ListenerCallback = (p: ActionCallbackProps) => Record<string, any> | void
 
 export interface ListenerProps {
   name: string
@@ -79,7 +84,7 @@ export interface ListenerProps {
   selector?: string
   event: string | string[]
   sortBy?: SortChildrenMethodsValues | ChildSortFunction
-  callback: ListenerCallback
+  callback: UserCallback
 }
 
 export interface StayTools {
@@ -101,8 +106,8 @@ export interface StayTools {
   move: (offsetX: number, offsetY: number) => void
   zoom: (deltaY: number, center: SimplePoint) => void
   log: () => void
-  forward: () => void
-  backward: () => void
+  redo: () => void
+  undo: () => void
   triggerAction: (originEvent: Event, triggerEvents: Record<string, any>, payload: Dict) => void
   deleteListener: (name: string) => void
   forceUpdateCanvas: () => void
@@ -132,5 +137,5 @@ export declare class StayChild<T extends Shape = Shape> {
     now: StayChild<T> | undefined
   ): StepProps | undefined
   copy(): StayChild<T>
-  update({ className, layer, shape, zIndex }: UpdateStayChildProps<T>): void
+  _update({ className, layer, shape, zIndex }: UpdateStayChildProps<T>): void
 }
