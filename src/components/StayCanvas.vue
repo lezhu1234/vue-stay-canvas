@@ -112,8 +112,14 @@ onMounted(() => {
 </script>
 <template>
   <div
-    class="container"
-    style="display: flex; position: relative; justify-content: center; align-items: center"
+    :style="{
+      display: 'flex',
+      position: 'relative',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: `${props.width}px`,
+      height: `${props.height}px`,
+    }"
   >
     <canvas
       ref="canvasLayers"
