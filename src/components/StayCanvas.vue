@@ -88,7 +88,7 @@ watch(
 )
 
 onMounted(() => {
-  stay.value = new StayStage(canvasLayers.value, layers.value, 600, 600)
+  stay.value = new StayStage(canvasLayers.value, layers.value, props.width, props.height)
   ;[...props.eventList!.values(), ...Object.values(PredefinedEventList)].forEach((event) => {
     stay.value!.registerEvent(event)
   })
