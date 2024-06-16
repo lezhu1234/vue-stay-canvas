@@ -137,7 +137,7 @@ const DragListener: ListenerProps = {
 </template>
 ``` 
 
-<video src="https://raw.githubusercontent.com/lezhu1234/vue-stay-canvas/main/docs/videos/demo.mp4" controls />
+<video src="https://raw.githubusercontent.com/lezhu1234/vue-stay-canvas/main/docs/videos/demo.mp4" controls></video>
 
 ## 更多示例
 
