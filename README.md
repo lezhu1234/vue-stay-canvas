@@ -137,7 +137,11 @@ const DragListener: ListenerProps = {
 </template>
 ``` 
 
-<video src="https://raw.githubusercontent.com/lezhu1234/vue-stay-canvas/main/docs/videos/demo.mp4" controls></video>
+
+
+https://github.com/lezhu1234/vue-stay-canvas/assets/11953013/41a20722-7570-41d4-b108-8bd3b6f0681b
+
+
 
 ## 更多示例
 
@@ -587,8 +591,11 @@ export interface StayCanvasProps {
     },
   }
   ```
-  <video src="videos/state-map.mp4" controls="">
-  </video>
+
+
+
+https://github.com/lezhu1234/vue-stay-canvas/assets/11953013/1d0f405d-73af-4909-80b0-3f026b147371
+
 
 ##### 动画
 
@@ -608,8 +615,11 @@ export interface StayCanvasProps {
   ...
   ```
 
-  <video src="videos/shape-anim.mp4" controls="">
-    </video>
+
+
+https://github.com/lezhu1234/vue-stay-canvas/assets/11953013/febb8d92-8d57-4d2f-a167-0243af5b907a
+
+
   
   你可以结合 [gsap](https://gsap.com/), [tween](https://github.com/tweenjs/tween.js) 等动画库来实现更多丰富的动画效果
 
@@ -1200,8 +1210,10 @@ redo 函数 和 undo 函数用来将当前 canvas 改变为栈中的快照
 
 ```
 
-<video src="videos//redo-undo.mp4" controls="">
-</video>
+
+
+https://github.com/lezhu1234/vue-stay-canvas/assets/11953013/6db2ea06-d499-44fe-8aa3-7b3b3e089a0b
+
 
 ##### triggerAction
 
